@@ -27,19 +27,6 @@ def init_54_deck():
     res.append(Card('RJ', ''))
     return res
 
-
-def init_spanish_deck():
-    """ Initialize a standard Spanish deck of 40 cards ( https://en.wikipedia.org/wiki/Spanish_playing_cards )
-
-    Returns:
-        (list): A list of Card object
-    """
-    suit_list = ['B', 'O', 'C', 'E']
-    rank_list = ['A', '2', '3', '4', '5', '6', '7', 'S', 'C', 'R']
-    deck = [Card(suit, rank) for suit in suit_list for rank in rank_list]
-    return deck
-
-
 def get_random_cards(cards, num, np_random=None):
     ''' Randomly get a number of chosen cards out of a list of cards
 
