@@ -1,3 +1,5 @@
+from functools import total_ordering
+
 from rlcard.core import Card
 
 
@@ -23,11 +25,14 @@ class SpanishCard(Card):
         super().__init__(suit, rank)
 
 
+@total_ordering
 class BriscaCard(SpanishCard):
     """
     Single card for the game of Brisca ( https://www.nhfournier.es/en/como-jugar/brisca/ )
 
     """
+    # Ordered from lesser to greater for convenience
+    valid_rank = ['2', '4', '5', '6', '7', 'S', 'C', 'R', '3', 'A']
     value = None
 
     def __init__(self, suit, rank):
@@ -50,6 +55,23 @@ class BriscaCard(SpanishCard):
             self.value = 2
         else:
             self.value = 0
+
+    def __eq__(self, other):
+        if isinstance(other, BriscaCard):
+            return self.rank == other.rank and self.suit == other.suit
+        else:
+            return NotImplemented
+
+    def __gt__(self, other):
+        if isinstance(other, BriscaCard):
+            return BriscaCard.valid_rank.index(self.rank) > BriscaCard.valid_rank.index(other.rank)
+        else:
+            return NotImplemented
+
+    def __hash__(self):
+        suit_index = BriscaCard.valid_suit.index(self.suit)
+        rank_index = BriscaCard.valid_rank.index(self.rank)
+        return rank_index + 43 * suit_index
 
     @staticmethod
     def init_brisca_deck():
