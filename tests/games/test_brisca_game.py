@@ -129,6 +129,19 @@ class TestBlackjackGame(unittest.TestCase):
         self.assertEqual(card.__repr__(), str_repr)
         self.assertEqual(card, BriscaCard.from_str_repr(str_repr))
 
+    def test_id(self):
+        card = BriscaCard('O', '2')
+        self.assertEqual(card.get_id(), 10)
+        card = BriscaCard('B', 'A')
+        self.assertEqual(card.get_id(), 9)
+        card = BriscaCard('E', 'A')
+        self.assertEqual(card.get_id(), 39)
+
+    def test_repr_from_id(self):
+        self.assertEqual(BriscaCard.get_repr_from_id(10), '2O')
+        self.assertEqual(BriscaCard.get_repr_from_id(9), 'AB')
+        self.assertEqual(BriscaCard.get_repr_from_id(39), 'AE')
+
 
 if __name__ == '__main__':
     unittest.main()

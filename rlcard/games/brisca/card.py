@@ -86,6 +86,21 @@ class BriscaCard(SpanishCard):
         rank_index = BriscaCard.valid_rank.index(self.rank)
         return rank_index + 43 * suit_index
 
+    def get_id(self):
+        num_cards_in_suit = len(self.valid_rank)
+        suit_id = self.valid_suit.index(self.suit)
+        rank_id = self.valid_rank.index(self.rank)
+        card_id = suit_id * num_cards_in_suit + rank_id
+        return card_id
+
+    @staticmethod
+    def get_repr_from_id(card_id):
+        num_cards_in_suit = len(BriscaCard.valid_rank)
+        suit_index = card_id // num_cards_in_suit
+        rank_index = card_id % num_cards_in_suit
+        card_repr = BriscaCard.valid_rank[rank_index] + BriscaCard.valid_suit[suit_index]
+        return card_repr
+
     @staticmethod
     def init_brisca_deck():
         """ Initialize a deck for the game of Brisca
