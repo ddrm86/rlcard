@@ -24,6 +24,9 @@ class SpanishCard(Card):
             raise ValueError('Invalid rank')
         super().__init__(suit, rank)
 
+    def __repr__(self):
+        return self.__str__()
+
 
 @total_ordering
 class BriscaCard(SpanishCard):
@@ -55,6 +58,16 @@ class BriscaCard(SpanishCard):
             self.value = 2
         else:
             self.value = 0
+
+    @staticmethod
+    def from_str_repr(str_repr):
+        """ Initialize the suit and rank of a card
+
+        Args:
+            str_repr: string representation of a card (two characters: rank + suit)
+        """
+        rank, suit = str_repr
+        return BriscaCard(suit, rank)
 
     def __eq__(self, other):
         if isinstance(other, BriscaCard):

@@ -105,7 +105,7 @@ class TestBlackjackGame(unittest.TestCase):
         dealer.deal_trump_card()
         player = BriscaPlayer(0)
         player.hand.append(subs_card)
-        dealer.substitute_trump_card(player, subs_card)
+        dealer.substitute_trump_card(player)
         self.assertTrue(subs_card not in player.hand)
         self.assertTrue(trump_card in player.hand)
         self.assertEqual(len(dealer.deck), 40)
@@ -120,7 +120,14 @@ class TestBlackjackGame(unittest.TestCase):
         dealer.deal_trump_card()
         player = BriscaPlayer(0)
         player.hand.append(subs_card)
-        self.assertRaises(ValueError, dealer.substitute_trump_card, player, subs_card)
+        self.assertRaises(ValueError, dealer.substitute_trump_card, player)
+
+    def test_str_repr(self):
+        card = BriscaCard('O', '3')
+        str_repr = '3O'
+        self.assertEqual(str(card), str_repr)
+        self.assertEqual(card.__repr__(), str_repr)
+        self.assertEqual(card, BriscaCard.from_str_repr(str_repr))
 
 
 if __name__ == '__main__':
