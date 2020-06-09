@@ -47,3 +47,8 @@ register(  # 200213
     env_id='gin-rummy',
     entry_point='rlcard.envs.gin_rummy:GinRummyEnv',
 )
+
+register(
+    env_id='brisca',
+    entry_point='rlcard.envs.brisca:BriscaEnv',
+)
