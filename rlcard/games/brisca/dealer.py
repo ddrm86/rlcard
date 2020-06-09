@@ -35,12 +35,12 @@ class BriscaDealer(Dealer):
         correct_trump_card = trump_card_seven if self.trump_card > trump_card_seven else trump_card_deuce
         return correct_trump_card
 
-    def substitute_trump_card(self, player, new_trump_card):
-        correct_trump_card = self.get_substitute_trump_card()
-        if new_trump_card != correct_trump_card:
-            raise ValueError('Incorrect trump card')
-        player.hand.remove(new_trump_card)
+    def substitute_trump_card(self, player):
+        substitute_trump_card = self.get_substitute_trump_card()
+        if substitute_trump_card not in player.hand:
+            raise ValueError("No substitute trump card in player's hand")
+        player.hand.remove(substitute_trump_card)
         player.hand.append(self.trump_card)
-        self.trump_card = new_trump_card
+        self.trump_card = substitute_trump_card
         self.deck.pop()
-        self.deck.append(new_trump_card)
+        self.deck.append(substitute_trump_card)
