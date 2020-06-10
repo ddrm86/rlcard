@@ -39,7 +39,7 @@ class BriscaGame(Game):
             self.current_player = self.player1
             self.second_to_act = self.player2
         self.first_to_act = self.current_player
-        state = self.get_state(self.current_player)
+        state = self.get_state(self.get_player_id())
         return state, self.get_player_id()
 
     def step(self, action):
@@ -74,7 +74,7 @@ class BriscaGame(Game):
             if action != 'substitute':
                 self.current_player = self.second_to_act
 
-        state = self.get_state(self.current_player.player_id)
+        state = self.get_state(self.get_player_id())
         return state, self.get_player_id()
 
     def step_back(self):
