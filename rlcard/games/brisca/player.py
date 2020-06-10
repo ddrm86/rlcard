@@ -9,10 +9,9 @@ class BriscaPlayer(Player):
         self.known_cards = []
 
     def __eq__(self, other):
-        if isinstance(other, BriscaPlayer):
-            return self.player_id == other.player_id
-        else:
-            return NotImplemented
+        if not isinstance(other, BriscaPlayer):
+            return False
+        return self.player_id == other.player_id
 
     def __hash__(self):
         return self.player_id * 43

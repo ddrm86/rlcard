@@ -70,16 +70,14 @@ class BriscaCard(SpanishCard):
         return BriscaCard(suit, rank)
 
     def __eq__(self, other):
-        if isinstance(other, BriscaCard):
-            return self.rank == other.rank and self.suit == other.suit
-        else:
-            return NotImplemented
+        if not isinstance(other, BriscaCard):
+            return False
+        return self.rank == other.rank and self.suit == other.suit
 
     def __gt__(self, other):
-        if isinstance(other, BriscaCard):
-            return BriscaCard.valid_rank.index(self.rank) > BriscaCard.valid_rank.index(other.rank)
-        else:
-            return NotImplemented
+        if not isinstance(other, BriscaCard):
+            return False
+        return BriscaCard.valid_rank.index(self.rank) > BriscaCard.valid_rank.index(other.rank)
 
     def __hash__(self):
         suit_index = BriscaCard.valid_suit.index(self.suit)
