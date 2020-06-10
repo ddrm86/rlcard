@@ -83,3 +83,7 @@ class TestBriscaCard(unittest.TestCase):
         self.assertEqual(BriscaCard.get_repr_from_id(10), '2O')
         self.assertEqual(BriscaCard.get_repr_from_id(9), 'AB')
         self.assertEqual(BriscaCard.get_repr_from_id(39), 'AE')
+
+
+if __name__ == '__main__':
+    unittest.main()

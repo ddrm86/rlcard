@@ -61,3 +61,7 @@ class TestBriscaDealer(unittest.TestCase):
         player = BriscaPlayer(0)
         player.hand.append(subs_card)
         self.assertRaises(ValueError, dealer.substitute_trump_card, player)
+
+
+if __name__ == '__main__':
+    unittest.main()
