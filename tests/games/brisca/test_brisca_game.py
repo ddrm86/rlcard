@@ -158,6 +158,14 @@ class TestBriscaGame(unittest.TestCase):
         game.board = [e2, os]
         self.assertEqual(game.get_round_winner(), p1)
 
+    def test_get_state_player(self):
+        game = BriscaGame(last_starting_player_id=1)
+        game.init_game()
+        state = game.get_state(0)
+        self.assertEqual(state['id'], 0)
+        state = game.get_state(1)
+        self.assertEqual(state['id'], 1)
+
 
 if __name__ == '__main__':
     unittest.main()
