@@ -15,7 +15,6 @@ class BriscaGame(Game):
         self.dealer = BriscaDealer()
         self.player1 = BriscaPlayer(0)
         self.player2 = BriscaPlayer(1)
-        self.winner = None
         self.first_to_act = None
         self.second_to_act = None
         self.current_player = None
