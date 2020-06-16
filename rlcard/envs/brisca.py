@@ -63,12 +63,7 @@ class BriscaEnv(Env):
     def get_payoffs(self):
         player1_score = self.game.player1.score
         player2_score = self.game.player2.score
-        if player1_score > player2_score:
-            return np.array([1, -1])
-        elif player1_score == player2_score:
-            return np.array([0, 0])
-        else:
-            return np.array([-1, 1])
+        return np.array([player1_score, player2_score])
 
     def get_perfect_information(self):
         raise NotImplementedError
