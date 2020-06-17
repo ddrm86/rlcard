@@ -18,3 +18,4 @@ from rlcard.agents.nolimit_holdem_human_agent import HumanAgent as Nolimitholdem
 from rlcard.agents.leduc_holdem_human_agent import HumanAgent as LeducholdemHumanAgent
 from rlcard.agents.random_agent import RandomAgent
 from rlcard.agents.uno_human_agent import HumanAgent as UnoHumanAgent
+from rlcard.agents.brisca_rule_agent import BriscaRuleAgent
