@@ -1,3 +1,4 @@
+from copy import deepcopy
 from random import choice
 
 from rlcard.core import Game
@@ -24,7 +25,7 @@ class BriscaGame(Game):
         self.round_number = 1
 
     def init_game(self):
-        self.__init__(self.last_starting_player_id)
+        self.__init__(self.last_starting_player_id, self.allow_step_back)
         for _ in range(3):  # Three cards per player
             self.dealer.deal_cards(self.player1)
             self.dealer.deal_cards(self.player2)
@@ -41,13 +42,24 @@ class BriscaGame(Game):
         state = self.get_state(self.get_player_id())
         return state, self.get_player_id()
 
+    def save_current_state(self):
+        d = deepcopy(self.dealer)
+        cp = deepcopy(self.current_player)
+        fta = deepcopy(self.first_to_act)
+        sta = deepcopy(self.second_to_act)
+        p1 = deepcopy(self.player1)
+        p2 = deepcopy(self.player2)
+        b = deepcopy(self.board)
+        pc = deepcopy(self.played_cards)
+        rn = deepcopy(self.round_number)
+        self.history.append((d, cp, fta, sta, p1, p2, b, pc, rn))
+
     def step(self, action):
         """ Perform one draw of the game and return next player number, and the state for next player
         """
         # TODO: player known cards: update when appropiate (substitution, use of substituted card, last rounds)
-        # TODO: allow step back
         if self.allow_step_back:
-            raise NotImplementedError
+            self.save_current_state()
 
         if action == 'substitute':
             self.dealer.substitute_trump_card(self.current_player)
@@ -77,9 +89,16 @@ class BriscaGame(Game):
         return state, self.get_player_id()
 
     def step_back(self):
-        """ Takes one step backward and restore to the last state
+        """ Return to the previous state of the game
+
+        Returns:
+            (bool): True if the game steps back successfully
         """
-        raise NotImplementedError
+        if not self.history:
+            return False
+        self.dealer, self.current_player, self.first_to_act, self.second_to_act, self.player1, self.player2, \
+            self.board, self.played_cards, self.round_number = self.history.pop()
+        return True
 
     def get_player_num(self):
         """ Return the number of players in the game

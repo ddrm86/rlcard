@@ -72,11 +72,6 @@ class TestBriscaGame(unittest.TestCase):
         self.assertEqual(game.board, [])
         self.assertEqual(game.round_number, 2)
 
-    def test_step_back(self):
-        game = BriscaGame()
-        game.init_game()
-        self.assertRaises(NotImplementedError, game.step_back)
-
     def test_get_action_num(self):
         game = BriscaGame()
         self.assertEqual(game.get_action_num(), 41)
