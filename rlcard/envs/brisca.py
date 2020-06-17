@@ -44,6 +44,9 @@ class BriscaEnv(Env):
         obs = np.vstack(encoded_tuple)
         legal_actions = self._get_legal_actions()
         extracted_state = {'obs': obs, 'legal_actions': legal_actions}
+        if self.allow_raw_data:
+            extracted_state['raw_obs'] = state
+            extracted_state['raw_legal_actions'] = self.game.get_actions(self.game.current_player)
         return extracted_state
 
     def _encode_card(self, card: BriscaCard or None):
