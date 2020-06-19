@@ -44,15 +44,15 @@ class BriscaGame(Game):
 
     def save_current_state(self):
         d = deepcopy(self.dealer)
-        cp = deepcopy(self.current_player)
-        fta = deepcopy(self.first_to_act)
-        sta = deepcopy(self.second_to_act)
         p1 = deepcopy(self.player1)
         p2 = deepcopy(self.player2)
         b = deepcopy(self.board)
         pc = deepcopy(self.played_cards)
         rn = deepcopy(self.round_number)
-        self.history.append((d, cp, fta, sta, p1, p2, b, pc, rn))
+        cp_id = self.current_player.player_id
+        fta_id = self.first_to_act.player_id
+        sta_id = self.second_to_act.player_id
+        self.history.append((d, p1, p2, b, pc, rn, cp_id, fta_id, sta_id))
 
     def step(self, action):
         """ Perform one draw of the game and return next player number, and the state for next player
@@ -96,8 +96,11 @@ class BriscaGame(Game):
         """
         if not self.history:
             return False
-        self.dealer, self.current_player, self.first_to_act, self.second_to_act, self.player1, self.player2, \
-            self.board, self.played_cards, self.round_number = self.history.pop()
+        self.dealer, self.player1, self.player2, self.board, self.played_cards, self.round_number,\
+            cp_id, fta_id, sta_id = self.history.pop()
+        self.current_player = self.player1 if cp_id == 0 else self.player2
+        self.first_to_act = self.player1 if fta_id == 0 else self.player2
+        self.second_to_act = self.player1 if sta_id == 0 else self.player2
         return True
 
     def get_player_num(self):
